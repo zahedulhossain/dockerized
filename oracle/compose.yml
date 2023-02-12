@@ -1,0 +1,17 @@
+volumes:
+  common-oracle-db:
+    name: 'common-oracle-db'
+
+services:
+
+  oracle:
+    image: gvenzl/oracle-xe:${ORACLE_IMAGE_TAG}
+    tty: true
+    env_file:
+      - env/oracle.env
+    volumes:
+      - common-oracle-db:${ORACLE_VOLUME_CONTAINER_DIR}
+    networks:
+      common-net:
+        aliases:
+          - common-oracle

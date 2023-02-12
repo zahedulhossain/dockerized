@@ -1,0 +1,13 @@
+services:
+
+  nginx:
+    image: nginx:${NGINX_IMAGE_TAG}
+    ports:
+      - '80:80'
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  whoami-one:
+    image: containous/whoami
+    environment:
+    - VIRTUAL_HOST=whoami-one.localhost

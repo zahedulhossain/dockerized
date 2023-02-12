@@ -1,0 +1,11 @@
+volumes:
+  rabbitmq-data:
+    external: true
+
+services:
+  rabbitmq:
+    image: rabbitmq:${RABBITMQ_IMAGE_TAG}
+    env_file:
+      - ./rabbitmq/.env
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq

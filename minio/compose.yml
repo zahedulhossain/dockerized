@@ -1,0 +1,48 @@
+volumes:
+  common-minio-data:
+    name: 'common-minio-data'
+  common-minio-client-config:
+    name: 'common-minio-client-config'
+
+services:
+
+  minio:
+    image: minio/minio:${MINIO_IMAGE_TAG}
+    command:
+      - minio
+      - server
+      - /data
+      - --console-address
+      - :${MINIO_CONSOLE_PUBLISH_PORT:-9001}
+    restart: "no"
+    env_file:
+      - env/minio.env
+    networks:
+      common-net:
+        aliases:
+          - common-minio
+    volumes:
+      - common-minio-data:/data
+
+  minio-client:
+    image: minio/mc:${MINIO_CLIENT_IMAGE_TAG}
+    command: ["--version"]
+    restart: "no"
+    depends_on:
+      - minio
+    networks:
+      - common-net
+    volumes:
+      - common-minio-client-config:/root/.mc
+
+  minio-nginx:
+    image: nginx:${MINIO_NGINX_IMAGE_TAG:-alpine}
+    restart: "no"
+    depends_on:
+      - minio
+    networks:
+      - common-net
+    volumes:
+      - ./minio/nginx/conf.d:/etc/nginx/conf.d
+      - ./minio/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./minio/nginx/certs:/etc/nginx/certs

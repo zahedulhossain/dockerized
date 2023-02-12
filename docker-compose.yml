@@ -1,0 +1,36 @@
+networks:
+  mygp-net:
+    external: true
+
+services:
+  # cassandra:
+  #   ports:
+  #     - ${CASSANDRA_PUBLISH_PORT}:9042
+
+  mysql:
+    networks:
+      mygp-net:
+        aliases:
+          - docker-mysql
+    ports:
+      - ${MYSQL_PUBLISH_PORT}:3306
+
+  rabbitmq:
+    networks:
+      mygp-net:
+        aliases:
+          - docker-rabbitmq
+    ports:
+      - ${RABBITMQ_PUBLISH_PORT}:15672
+
+  # redis:
+  #   ports:
+  #     - ${REDIS_PUBLISH_PORT}:6379
+
+  redisearch:
+    networks:
+      mygp-net:
+        aliases:
+          - docker-redis
+    ports:
+      - ${REDISEARCH_PUBLISH_PORT}:6379

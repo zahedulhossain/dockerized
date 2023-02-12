@@ -1,0 +1,10 @@
+volumes:
+  redis-data:
+    external: true
+
+services:
+
+  redisearch:
+    image: redislabs/redisearch:${REDISEARCH_IMAGE_TAG}
+    volumes:
+      - redis-data:/data

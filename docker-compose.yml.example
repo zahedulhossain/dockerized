@@ -1,0 +1,106 @@
+networks:
+  local-net:
+    external: true
+
+services:
+  adminer:
+    ports:
+      - ${ADMINER_PUBLISH_PORT}:8080
+
+  cassandra:
+    ports:
+      - ${CASSANDRA_PUBLISH_PORT}:9042
+
+  elasticsearch:
+    ports:
+      - ${ELASTICSEARCH_PUBLISH_PORT}:9200
+
+  grafana:
+    ports:
+      - ${GRAFANA_PUBLISH_PORT}:3000
+
+  kibana:
+    ports:
+      - ${KIBANA_PUBLISH_PORT}:5601
+
+  ldapadmin:
+    ports:
+      - ${LDAPADMIN_PUBLISH_PORT}:80
+
+  maildev:
+    ports:
+      - ${MAILDEV_PUBLISH_PORT}:1080
+
+  mailhog:
+    ports:
+      - ${MAILHOG_PUBLISH_PORT}:8025
+
+  minio:
+    ports:
+      - ${MINIO_API_PUBLISH_PORT}:9000
+      - ${MINIO_CONSOLE_PUBLISH_PORT:-9001}:${MINIO_CONSOLE_PUBLISH_PORT:-9001}
+    volumes:
+      - ./minio/certs:/root/.minio/certs
+
+  minio-client:
+    volumes:
+      - ./minio/policies:/minio-policies
+
+  minio-nginx:
+    ports:
+      - ${MINIO_NGINX_API_PUBLISH_PORT}:443
+      - ${MINIO_NGINX_CONSOLE_PUBLISH_PORT}:444
+
+  mysql:
+    networks:
+      local-net:
+        aliases:
+          - docker-mysql
+    ports:
+      - ${MYSQL_PUBLISH_PORT}:3306
+
+
+  nfs-server:
+    ports:
+      - ${NFS_SERVER_PUBLISH_PORT}:2049
+
+  oracle:
+    shm_size: 1g
+    ports:
+      - ${ORACLE_PUBLISH_PORT}:1521
+
+  portainer:
+    ports:
+      - ${PORTAINER_PUBLISH_PORT}:9443
+
+  redis:
+    ports:
+      - ${REDIS_PUBLISH_PORT}:6379
+
+  redis-slave:
+    ports:
+      - ${REDIS_SLAVE_PUBLISH_PORT}:6379
+
+  redis-sentinel:
+    ports:
+      - ${REDIS_SENTINEL_PUBLISH_PORT}:26379
+
+  redis-commander:
+    ports:
+      - ${REDIS_COMMANDER_PUBLISH_PORT}:8081
+
+  redisearch:
+    ports:
+      - ${REDISEARCH_PUBLISH_PORT}:6379
+
+  rabbitmq:
+    ports:
+      - ${RABBITMQ_PUBLISH_PORT}:15672
+
+  traefik:
+    labels:
+      - "traefik.http.routers.traefik=true"
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080

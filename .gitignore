@@ -1,0 +1,12 @@
+/.idea
+/.vscode
+/.vagrant
+*.sublime-project
+*.sublime-workspace
+/nbproject
+/*.code-workspace
+
+.DS_Store
+
+.env
+docker-compose.override.yml
