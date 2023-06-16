@@ -1,0 +1,10 @@
+/.idea
+/.vscode
+/.vagrant
+/nbproject
+/*.code-workspace
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+.env
+docker-compose.yml

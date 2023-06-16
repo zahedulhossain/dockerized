@@ -1,0 +1,4 @@
+services:
+
+  maildev:
+    image: 'maildev/maildev:${MAILDEV_IMAGE_TAG}'

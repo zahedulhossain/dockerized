@@ -1,0 +1,6 @@
+*.yaml
+*.yml
+*.toml
+!*.yaml.example
+!*.yml.example
+!*.toml.example

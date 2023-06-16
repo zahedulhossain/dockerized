@@ -1,0 +1,12 @@
+volumes:
+  redis-data:
+    external: true
+
+services:
+
+  redisearch:
+    image: redislabs/redisearch:${REDISEARCH_IMAGE_TAG}
+    env_file:
+      - ./redisearch/.env
+    volumes:
+      - redis-data:/data

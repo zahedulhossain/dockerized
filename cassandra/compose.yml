@@ -1,0 +1,14 @@
+volumes:
+  cassandra-data:
+    external: true
+
+services:
+
+  cassandra:
+    image: cassandra:${CASSANDRA_IMAGE_TAG}
+    env_file:
+      - ./cassandra/.env
+    volumes:
+      - ./cassandra/cassandra.yaml:/etc/cassandra/cassandra.yaml
+      - ./cassandra/cqls:/cqls
+      - cassandra-data:/var/lib/cassandra

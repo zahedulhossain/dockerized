@@ -1,0 +1,13 @@
+volumes:
+  portainer-data:
+    external: true
+
+services:
+
+  portainer:
+    image: cr.portainer.io/portainer/portainer-ce:${PORTAINER_IMAGE_TAG}
+    # env_file:
+    #   - env/portainer.env
+    volumes:
+      - portainer-data:/data
+      - /var/run/docker.sock:/var/run/docker.sock

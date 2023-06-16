@@ -1,0 +1,15 @@
+volumes:
+  grafana-data:
+    external: true
+  grafana-log:
+    external: true
+
+services:
+
+  grafana:
+    image: 'grafana/${GRAFANA_IMAGE_TAG}'
+    env_file:
+      - ./grafana/.env
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - grafana-log:/var/log/grafana

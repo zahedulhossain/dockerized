@@ -1,0 +1,4 @@
+services:
+
+  mailhog:
+    image: 'mailhog/mailhog:${MAILHOG_IMAGE_TAG}'

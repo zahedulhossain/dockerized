@@ -1,0 +1,13 @@
+volumes:
+  oracle-data:
+    external: true
+
+services:
+
+  oracle:
+    image: gvenzl/oracle-xe:${ORACLE_IMAGE_TAG}
+    tty: true
+    env_file:
+      - ./oracle/.env
+    volumes:
+      - oracle-data:${ORACLE_VOLUME_CONTAINER_DIR}

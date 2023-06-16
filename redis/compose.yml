@@ -1,0 +1,21 @@
+volumes:
+  redis-data:
+    external: true
+  redis-sentinel-data:
+    external: true
+
+services:
+
+  redis:
+    image: redis:${REDIS_IMAGE_TAG}
+    env_file:
+      - ./redis/.env
+    volumes:
+      - redis-data:/data
+
+  redis-sentinel:
+    image: bitnami/redis-sentinel:${REDIS_IMAGE_TAG}
+    env_file:
+      - ./redis/.sentinel.env
+    volumes:
+      - redis-sentinel:/bitnami
