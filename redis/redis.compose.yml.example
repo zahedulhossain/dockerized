@@ -1,0 +1,12 @@
+volumes:
+  redis-data:
+    external: true
+
+services:
+
+  redis:
+    image: redis:${REDIS_IMAGE_TAG}
+    env_file:
+      - ./redis/.env
+    volumes:
+      - redis-data:/data

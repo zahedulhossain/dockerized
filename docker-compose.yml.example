@@ -78,14 +78,6 @@ services:
     ports:
       - ${REDIS_SENTINEL_PUBLISH_PORT}:26379
 
-  redisearch:
-    networks:
-      docker-net:
-        aliases:
-          - docker-redis
-    ports:
-      - ${REDIS_PUBLISH_PORT}:6379
-
   rabbitmq:
     networks:
       docker-net:

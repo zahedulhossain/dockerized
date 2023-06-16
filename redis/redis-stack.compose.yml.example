@@ -4,9 +4,9 @@ volumes:
 
 services:
 
-  redisearch:
-    image: redislabs/redisearch:${REDISEARCH_IMAGE_TAG}
+  redis:
+    image: redis/redis-stack-server:${REDIS_STACK_IMAGE_TAG}
     env_file:
-      - ./redisearch/.env
+      - ./redis/.env
     volumes:
       - redis-data:/data

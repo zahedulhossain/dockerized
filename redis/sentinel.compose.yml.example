@@ -18,4 +18,4 @@ services:
     env_file:
       - ./redis/.sentinel.env
     volumes:
-      - redis-sentinel:/bitnami
+      - redis-sentinel-data:/bitnami
