@@ -1,0 +1,78 @@
+networks:
+  local-net:
+    external: true
+
+services:
+  app:
+    env_file:
+      - env/php-ini.env
+      - env/php-fpm.env
+    restart: "no"
+    volumes:
+      - ../src:/var/www/html
+    networks:
+      local-net:
+        aliases:
+          - laravel-app
+
+  nginx:
+    env_file:
+      - env/nginx.env
+    environment:
+      - NGINX_VHOST_FASTCGI_PARAM_X_FORWARDED_PORT=${HTTP_PUBLISH_PORT}
+    restart: "no"
+    volumes:
+      - ../src/public:/var/www/html/public
+    networks:
+      - local-net
+    ports:
+      - ${HTTP_PUBLISH_PORT}:80
+      - ${HTTPS_PUBLISH_PORT}:443
+
+  node:
+    env_file:
+      - env/node.env
+    environment:
+      - VITE_PUBLISH_PORT=${VITE_PUBLISH_PORT}
+    volumes:
+      - ../src:/var/www/html
+    networks:
+      - local-net
+    ports:
+      - ${VITE_PUBLISH_PORT}:${VITE_PUBLISH_PORT}
+
+#  queue:
+#    image: ${COMPOSE_PROJECT_NAME}-app:${DOCKER_BUILD_MODE:-prod}
+#    tty: true
+#    command:
+#      - php
+#      - artisan
+#      - queue:work
+#    stop_signal: SIGTERM
+#    restart: "no"
+#    env_file:
+#      - env/php-ini.env
+#      - env/queue.env
+#    volumes:
+#      - ../src:/var/www/html
+#    extra_hosts:
+#      - "host.docker.internal:host-gateway"
+#    networks:
+#      - local-net
+
+#  cron:
+#    image: ${COMPOSE_PROJECT_NAME}-app:${DOCKER_BUILD_MODE:-prod}
+#    tty: true
+#    command:
+#      - /run-scheduler.sh
+#    stop_signal: SIGTERM
+#    restart: "no"
+#    env_file:
+#      - env/php-ini.env
+#      - env/scheduler.env
+#    volumes:
+#      - ../src:/var/www/html
+#    extra_hosts:
+#      - "host.docker.internal:host-gateway"
+#    networks:
+#      - local-net

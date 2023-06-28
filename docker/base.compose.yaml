@@ -1,0 +1,13 @@
+services:
+
+  php:
+    image: docker.io/zahedulhossain/laravel:10.2.4
+    build:
+      context: ../
+      dockerfile: docker/php/base.Dockerfile
+      args:
+        - HTTP_PROXY=${APP_HTTP_PROXY:-}
+        - HTTPS_PROXY=${APP_HTTPS_PROXY:-}
+        - NO_PROXY=${APP_NO_PROXY:-127.0.0.1,localhost}
+        - TIMEZONE=${APP_TIMEZONE:-UTC}
+    restart: 'no'

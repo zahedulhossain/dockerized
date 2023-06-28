@@ -1,0 +1,61 @@
+services:
+  app:
+    image: ${COMPOSE_PROJECT_NAME}-app:${DOCKER_BUILD_MODE:-prod}
+    build:
+      context: ../
+      dockerfile: docker/php/Dockerfile
+      args:
+        - HTTP_PROXY=${APP_HTTP_PROXY:-}
+        - HTTPS_PROXY=${APP_HTTPS_PROXY:-}
+        - NO_PROXY=${APP_NO_PROXY:-127.0.0.1,localhost}
+        - BUILD_MODE=${DOCKER_BUILD_MODE:-prod}
+        - TIMEZONE=${APP_TIMEZONE:-Asia/Dhaka}
+        - UID=${UID}
+        - GID=${GID}
+        - SHOULD_CHOWN_TO_APP=false
+        - NODE_IMAGE_NAME=${COMPOSE_PROJECT_NAME}-node
+        - NODE_IMAGE_TAG=prod
+        - 'EXTRA_INSTALL_APT_PACKAGES=${APP_EXTRA_INSTALL_APT_PACKAGES}'
+        - 'EXTRA_INSTALL_PHP_EXTENSIONS=${APP_EXTRA_INSTALL_PHP_EXTENSIONS}'
+    tty: true
+    restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  nginx:
+    image: ${COMPOSE_PROJECT_NAME}-nginx:${DOCKER_BUILD_MODE:-prod}
+    build:
+      context: ../
+      dockerfile: docker/nginx/Dockerfile
+      args:
+        - HTTP_PROXY=${APP_HTTP_PROXY:-}
+        - HTTPS_PROXY=${APP_HTTPS_PROXY:-}
+        - NO_PROXY=${APP_NO_PROXY:-127.0.0.1,localhost}
+        - TIMEZONE=${APP_TIMEZONE:-Asia/Dhaka}
+        - UID=${UID}
+        - GID=${GID}
+        - SHOULD_CHOWN_TO_APP=false
+        - NODE_IMAGE_NAME=${COMPOSE_PROJECT_NAME}-node
+        - NODE_IMAGE_TAG=prod
+    tty: true
+    restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  node:
+    image: ${COMPOSE_PROJECT_NAME}-node:${DOCKER_BUILD_MODE:-prod}
+    build:
+      context: ../
+      dockerfile: docker/node/Dockerfile
+      args:
+        - HTTP_PROXY=${APP_HTTP_PROXY:-}
+        - HTTPS_PROXY=${APP_HTTPS_PROXY:-}
+        - NO_PROXY=${APP_NO_PROXY:-127.0.0.1,localhost}
+        - TIMEZONE=${APP_TIMEZONE:-Asia/Dhaka}
+        - UID=${UID}
+        - GID=${GID}
+        - SHOULD_CHOWN_TO_APP=false
+    tty: true
+    restart: 'no'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
