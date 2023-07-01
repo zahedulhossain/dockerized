@@ -7,15 +7,15 @@
 
 ### Copy env files
 
-- In `/docker` directory
+- In `docker` directory
 - Copy `.env.example` to `.env` file.
 
-- In `/docker/env` directory
+- In `docker/env` directory
 - Make an `env` copy from the `example` files.
 
 ### Configure compose.override.yaml
 
-- In `/docker` directory
+- In `docker` directory
 - Copy `compose.override.yaml.example` to `compose.override.yaml` file.
 - Edit `compose.override.yaml`.
 
@@ -25,7 +25,7 @@
 
 ### Configure .env for docker
 
-- In `/docker` directory
+- In `docker` directory
 - Edit `.env` file
 - Add Proxy settings, if needed:
     - `PROXY_HTTP=http://proxy-address:port/`
@@ -38,44 +38,29 @@
 
 ### Configure .env for app
 
-- In `/src` directory
+- In `src` directory
 - Copy `.env.example` to `.env` file.
 - Edit `.env` file
-- App
-    - `APP_NAME=your-domain-name.com`
-    - For SSL, update `http` to `https` at `APP_URL=`.
-    - `APP_TIMEZONE=Asia/Dhaka`
-    - Set `APP_DEBUG=true`
-    - Set `APP_ENV=local`
-
-- Database
-    - `DB_HOST=local-net` (enter docker mysql service network name)
-    - `DB_PORT=3306`
-    - `DB_DATABASE=your_db_name`
-    - `DB_USERNAME=your_db_username`
-    - `DB_PASSWORD=your_db_pass`
-    - `DB_ROOT_PASSWORD=your_root_db_pass`
-
-- Do any other configurations as needed.
+- Set env values as needed
 
 ## Run the services
 
-From `docker/` directory, run commands
+From `docker` directory, run commands
 
-First build the `node` service  
-(required for CSS/JS assets compilation using `vite` [🔗](https://laravel.com/docs/10.x/vite).)
+First build the `node` image  
+(as some css & js asset files will be copied from this image.)
 
-- `docker-compose build node`
-- `docker-compose run --rm node npm ci`
+- `docker compose build node`
+- `docker compose run --rm node npm i`
 
-Now build the `web` and `app` service
+Now build the `nginx` and `app` service
 
-- `docker-compose build web app`
-- `docker-compose up -d`
-- `docker-compose exec app bash`
+- `docker compose build nginx app`
+- `docker compose up -d`
+- `docker compose exec app bash`
 - `composer install`
 
-Application commands:
+Laravel commands:
 - `php artisan key:generate`
 - `php artisan migrate`
 - `php artisan db:seed`
