@@ -1,5 +1,5 @@
 networks:
-  docker-net:
+  local-net:
     external: true
 
 services:
@@ -9,13 +9,17 @@ services:
 
   cassandra:
     networks:
-      docker-net:
+      local-net:
         aliases:
           - docker-cassandra
     ports:
       - ${CASSANDRA_PUBLISH_PORT}:9042
- 
+
   elasticsearch:
+    networks:
+      local-net:
+        aliases:
+          - docker-elasticsearch
     ports:
       - ${ELASTICSEARCH_PUBLISH_PORT}:9200
 
@@ -24,6 +28,10 @@ services:
       - ${GRAFANA_PUBLISH_PORT}:3000
 
   kibana:
+    networks:
+      local-net:
+        aliases:
+          - docker-kibana
     ports:
       - ${KIBANA_PUBLISH_PORT}:5601
 
@@ -37,21 +45,16 @@ services:
 
   minio:
     networks:
-      docker-net:
+      local-net:
         aliases:
           - docker-minio
     ports:
       - ${MINIO_API_PUBLISH_PORT}:9000
       - ${MINIO_CONSOLE_PUBLISH_PORT}:9001
 
-  minio-nginx:
-    ports:
-      - ${MINIO_NGINX_API_PUBLISH_PORT}:9002
-      - ${MINIO_NGINX_CONSOLE_PUBLISH_PORT}:9003
-
   mysql:
     networks:
-      docker-net:
+      local-net:
         aliases:
           - docker-mysql
     ports:
@@ -68,7 +71,7 @@ services:
 
   redis:
     networks:
-      docker-net:
+      local-net:
         aliases:
           - docker-redis
     ports:
@@ -80,7 +83,7 @@ services:
 
   rabbitmq:
     networks:
-      docker-net:
+      local-net:
         aliases:
           - docker-rabbitmq
     ports:

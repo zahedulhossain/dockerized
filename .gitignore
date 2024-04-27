@@ -7,4 +7,3 @@
 *.sublime-workspace
 .DS_Store
 .env
-docker-compose.yml
