@@ -1,0 +1,6 @@
+
+services:
+  kibana:
+    image: 'kibana:${KIBANA_IMAGE_TAG}'
+    env_file:
+      - ./kibana/.env
