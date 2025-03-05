@@ -1,4 +1,4 @@
-FROM php:8.2.7-fpm
+FROM php:8.4.4-fpm
 
 LABEL maintainer="Zahedul Hossain <md.zahedulhossain@gmail.com>"
 
@@ -13,7 +13,7 @@ ENV http_proxy="${HTTP_PROXY}" \
     https_proxy="${HTTPS_PROXY}" \
     no_proxy="${NO_PROXY}" \
     TZ="${TIMEZONE}" \
-    COMPOSER_VERSION="2.5.8" \
+    COMPOSER_VERSION="2.8.6" \
     COMPOSER_HOME="/usr/local/composer"
 
 USER root

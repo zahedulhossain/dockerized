@@ -14,7 +14,7 @@ services:
         - GID=${GID}
         - SHOULD_CHOWN_TO_APP=false
         - NODE_IMAGE_NAME=${COMPOSE_PROJECT_NAME}-node
-        - NODE_IMAGE_TAG=prod
+        - NODE_IMAGE_TAG=${DOCKER_BUILD_MODE:-prod}
         - 'EXTRA_INSTALL_APT_PACKAGES=${APP_EXTRA_INSTALL_APT_PACKAGES}'
         - 'EXTRA_INSTALL_PHP_EXTENSIONS=${APP_EXTRA_INSTALL_PHP_EXTENSIONS}'
     tty: true
@@ -36,7 +36,7 @@ services:
         - GID=${GID}
         - SHOULD_CHOWN_TO_APP=false
         - NODE_IMAGE_NAME=${COMPOSE_PROJECT_NAME}-node
-        - NODE_IMAGE_TAG=prod
+        - NODE_IMAGE_TAG=${DOCKER_BUILD_MODE:-prod}
     tty: true
     restart: always
     extra_hosts:

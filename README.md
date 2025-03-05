@@ -20,8 +20,8 @@
 - Edit `compose.override.yaml`.
 
 
-- Create a network interface named 'local-net' by running: `docker network create local-net`
-- Edit the network aliases as per your need.
+- Create a network interface : `docker network create local-net`
+- Make sure to use the same network interface in compose override aliases, e.g. `local-net`
 
 ### Configure .env for docker
 
