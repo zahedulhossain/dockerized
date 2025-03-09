@@ -1,7 +1,7 @@
 services:
 
   php:
-    image: docker.io/zahedulhossain/laravel:10.2.4
+    image: docker.io/zahedulhossain/laravel:12.1.1
     build:
       context: ../
       dockerfile: docker/php/base.Dockerfile

@@ -1,6 +1,9 @@
-#FROM ${NODE_IMAGE_NAME}:${NODE_IMAGE_TAG} as node-image
+ARG NODE_IMAGE_NAME
+ARG NODE_IMAGE_TAG
 
-FROM nginx:1.25.1
+FROM ${NODE_IMAGE_NAME}:${NODE_IMAGE_TAG} AS node-image
+
+FROM nginx:1.27.5
 
 LABEL maintainer="Zahedul Hossain <md.zahedulhossain@gmail.com>"
 
@@ -72,7 +75,7 @@ COPY --chown=app:app ./src/public ./public
 
 # --from does not support ARG
 # Ref: https://stackoverflow.com/a/69303997
-#COPY --chown=app:app --from=node-image /var/www/html/public/build ./public/build
+COPY --chown=app:app --from=node-image /var/www/html/public/build ./public/build
 
 RUN chmod ugo+x /docker-entrypoint.sh \
     && touch /var/run/nginx.pid \

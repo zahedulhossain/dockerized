@@ -1,6 +1,9 @@
-#FROM ${NODE_IMAGE_NAME}:${NODE_IMAGE_TAG} as node-image
+ARG NODE_IMAGE_NAME
+ARG NODE_IMAGE_TAG
 
-FROM docker.io/zahedulhossain/laravel:10.2.4
+FROM ${NODE_IMAGE_NAME}:${NODE_IMAGE_TAG} AS node-image
+
+FROM docker.io/zahedulhossain/laravel:12.1.1
 
 LABEL maintainer="Zahedul Hossain <zahedul.hossain@grameenphone.com>"
 
@@ -74,7 +77,7 @@ COPY --chown=app:app ./src/artisan ./
 # --from does not support ARG
 # Ref: https://stackoverflow.com/a/69303997
 #COPY --chown=app:app --from=node-image /var/www/html/bootstrap/ssr ./bootstrap/ssr
-#COPY --chown=app:app --from=node-image /var/www/html/public/build ./public/build
+COPY --chown=app:app --from=node-image /var/www/html/public/build ./public/build
 
 USER root
 

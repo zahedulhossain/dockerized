@@ -1,6 +1,6 @@
-FROM docker.io/zahedulhossain/laravel:10.2.4 as base-php
+#FROM docker.io/zahedulhossain/laravel:12.1.1 AS base-php
 
-FROM node:18.16.1-slim
+FROM node:22.14.0-slim
 
 LABEL maintainer="Zahedul Hossain <md.zahedulhossain@gmail.com>"
 
