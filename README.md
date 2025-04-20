@@ -66,7 +66,7 @@ Laravel commands:
 - `php artisan db:seed`
 
 Now you are ready to browse the app. 
-- Open the APP_URL http://localhost:8080 in a browser.
+- Open the APP_URL http://localhost in a browser.
 
 ## Directory Permissions
 
